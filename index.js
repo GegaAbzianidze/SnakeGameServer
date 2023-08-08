@@ -5,12 +5,14 @@ const { Server } = require("socket.io");
 const cors = require("cors");
 
 app.use(cors());
+const port = process.env.PORT || 3000; // Default to port 3000 if PORT is not set
+
 
 const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "https://snake-game-with-controller.vercel.app/",
+    origin: "*",
     methods: ["GET", "POST"],
   },
 });
@@ -36,6 +38,6 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(3001, () => {
-  console.log("listening on *:5173");
+server.listen(port, '0.0.0.0', () => {
+  console.log(`listening on *:${port}`);
 });
